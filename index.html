@@ -122,7 +122,7 @@
                         </form>
                     </div>
                     <div class="col">
-                        <img id="img"class="center" src="images\sidegrain_free.png" width="100" border: 5px solid #555;>
+                        <img id="img"class="center" src=".\images\sidegrain_free.png" width="100" border: 5px solid #555;>
                     </div>
                 </div>
                 <p id="k2text"><b>k<sub>2</sub> = 1</b></p>
@@ -177,22 +177,22 @@
     var f2 = document.getElementById("form2")
     if (f2[0].checked && f2[2].checked) {
         var k2 = 1
-        document.getElementById("img").src = "images\\sidegrain_free.png"
+        document.getElementById("img").src = "./images/sidegrain_free.png"
     } else if (f2[0].checked && f2[3].checked) {
         var k2 = 1.5
-        document.getElementById("img").src = "images\\sidegrain_vented.png"
+        document.getElementById("img").src = "./images7sidegrain_vented.png"
     } else if (f2[0].checked && f2[4].checked) {
         var k2 = 1.8
-        document.getElementById("img").src = "images\\sidegrain_contact.png"
+        document.getElementById("img").src = "./images/sidegrain_contact.png"
     } else if (f2[1].checked && f2[2].checked) {
         var k2 = 1.5
-        document.getElementById("img").src = "images\\endgrain_free.png"
+        document.getElementById("img").src = "./images/endgrain_free.png"
     } else if (f2[1].checked && f2[3].checked) {
         var k2 = 1.8
-        document.getElementById("img").src = "images\\endgrain_vented.png"
+        document.getElementById("img").src = "./images/endgrain_vented.png"
     } else if (f2[1].checked && f2[4].checked) {
         var k2 = 2.5
-        document.getElementById("img").src = "images\\endgrain_contact.png"
+        document.getElementById("img").src = "./images/endgrain_contact.png"
     }                   
     console.log(k2)
     document.getElementById("k2text").innerHTML = "<b>k<sub>1</sub> = "+k2+"</b>"
