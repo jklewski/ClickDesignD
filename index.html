@@ -35,18 +35,28 @@
   <!-- data in-->
   <script>
     var materialResistance = []
+    var out = []
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
-      materialResistance = JSON.parse(this.responseText)
+      out = JSON.parse(this.responseText)
     }
     xhttp.open("GET", "./assets/MaterialResistance.json", false);
     xhttp.send();
+    materialResistance = out;
+    xhttp.open("GET", "./assets/doses.json", false);
+    xhttp.send();
+    doses = out;
+
   </script>
 </head>
 
 <body>
   <br>
-
+  <div class="container-fluid" style="margin-left:30vh">
+    <h1> SL = D<sub>Rd</sub> / D<sub>ref</sub> k<sub>1</sub> k<sub>2</sub> k<sub>3</sub> k<sub>4</sub> 
+      = 325/36&middot1&middot1&middot1&middot1 = 10 years</h1>
+  </div>
+  <br>
   <div class="container">
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#home">Location</a></li>
@@ -65,9 +75,9 @@
           multiple climates across Europe. <br><br>
           Drag the pin to a location on the map.</p>
         <div id="map"
-          style="height:300px; width:90%; margin-left:auto; margin-right:auto; margin-top:20px;border-style: solid;">
+          style="height:300px; width:70%; margin-left:auto; margin-right:auto; margin-top:20px;border-style: solid;">
         </div>
-        <p id="D_ref"><b>D<sub>ref</sub> = 26 dosedays</b></p>
+        <p id="D_ref"><b>D<sub>ref</sub> = 36 dosedays</b></p>
       </div>
 
       <!-- 2ND MENU-->
@@ -139,10 +149,31 @@
 
 
   <script>
+
+    
     var map = L.map('map').setView([55, 15], 3);
     L.tileLayer.provider('Stamen.Terrain').addTo(map);
     var marker = L.marker([51.5, -0.09], { draggable: 'true' }).addTo(map);
+
+    for (var i = 0; i < doses.D_log.length; i++) {
+    circleMarker = new L.circleMarker([doses.lat[i], doses.lon[i]],{radius:1,color:"red",opacity:0.2})
+    .addTo(map);
+}
     //marker._latlng
+    marker.on('dragend',function() {
+    const lat = this._latlng.lat;
+    const lon = this._latlng.lng;
+    const d = [];
+    for (let i=0;i<doses.lon.length;i++) {
+      d[i] = ((doses.lon[i] - lon)**2 + (doses.lat[i] - lat)**2)**0.5
+    }
+    ind = d.indexOf(Math.min(...d));
+    document.getElementById("D_ref").innerHTML = "<b>D<sub>Ref</sub> = " + Math.round(doses.D_log[ind]) + " dosedays </b>"
+    marker.setLatLng([doses.lat[ind], doses.lon[ind]]);
+    })
+    
+
+    
 </script>
   <script>
 
