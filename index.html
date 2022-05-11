@@ -33,57 +33,41 @@
   </script>
 
   <!-- data in-->
-  <script>
-    var materialResistance = []
-    var out = []
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function () {
-      out = JSON.parse(this.responseText)
-    }
-    xhttp.open("GET", "./assets/MaterialResistance.json", false);
-    xhttp.send();
-    materialResistance = out;
-    xhttp.open("GET", "./assets/doses.json", false);
-    xhttp.send();
-    doses = out;
 
-  </script>
 </head>
 
 <body>
-  <br>
-  <div class="container-fluid" style="margin-left:30vh">
-    <h1> SL = D<sub>Rd</sub> / D<sub>ref</sub> k<sub>1</sub> k<sub>2</sub> k<sub>3</sub> k<sub>4</sub> 
-      = 325/36&middot1&middot1&middot1&middot1 = 10 years</h1>
-  </div>
-  <br>
-  <div class="container">
+  <div class="container-fluid text-white bg-dark text-center" style="background-color:#212121">
+    <h1 class="display-1"> Decay module </h1>
+</div>
+
+
+  <div id="mainContainer">
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#home">Location</a></li>
-      <li><a data-toggle="tab" href="#menu1">Local conditions</a></li>
+      <li><a data-toggle="tab" href="#menu1" >Local conditions</a></li>
       <li><a data-toggle="tab" href="#menu2">Detailing</a></li>
       <li><a data-toggle="tab" href="#menu3">Shelter</a></li>
       <li><a data-toggle="tab" href="#menu4">Material</a></li>
+      <li><a data-toggle="tab" href="#menu4" style="color:blueviolet;font-weight:bold">Service life</a></li>
     </ul>
 
     <div class="tab-content">
       <div id="home" class="tab-pane fade in active">
-        <h3>Geographic location</h3>
-        <p>The location of your planned or existing project will affect the
+        <h3 style="display:none">Geographic location</h3>
+        <p style="display:none">The location of your planned or existing project will affect the
           service life of wooden material that is exposed to water.
           This effect has been considered by modelling the durability of a reference board in
           multiple climates across Europe. <br><br>
           Drag the pin to a location on the map.</p>
-        <div id="map"
-          style="height:300px; width:70%; margin-left:auto; margin-right:auto; margin-top:20px;border-style: solid;">
-        </div>
-        <p id="D_ref"><b>D<sub>ref</sub> = 36 dosedays</b></p>
+        <div id="map"></div>
       </div>
 
       <!-- 2ND MENU-->
       <div id="menu1" class="tab-pane fade">
+        <div class="menuContent">
         <h3>Local conditions/terrain</h3>
-        <div class="card bg-dark text-white">
+        
           <p>The surrounding terrain and topography will affect the local conditions at the
             location for the project. Local conditions can affect drying conditions
             (through for example shading) or exposure to precipitation (through e.g. shelter from
@@ -101,9 +85,10 @@
           <p id="k1text"><b>k<sub>1</sub> = 1.0</b></p>
         </div>
       </div>
-
+    
       <!-- 3RD MENU-->
       <div id="menu2" class="tab-pane fade">
+        <div class="menuContent">
         <h3>Geometry & Contact faces</h3>
         <p>Exposed end-grain tend to absorb more water than exposed side-grain. As
           a result, decay often starts near exposed end-grain.</p>
@@ -126,9 +111,10 @@
         <br>
         <img id="img" src=".\images\sidegrain_free.png" width="100" border: 5px solid #555;>
       </div>
-
+    </div>
       <!-- 4TH MENU-->
       <div id="menu3" class="tab-pane fade">
+        <div class="menuContent">
         <h3>Sheltering</h3>
         <p class="card-text">The term shelter is here used to describe any effect which is may reduce the
           duration of wetting of a <i>horizontal</i> wood surface.
@@ -136,154 +122,17 @@
           a wooden product vertically will reduce the duration of wetting and thereby increase service
           life.</p>
       </div>
+    </div>
       <div id="menu4" class="tab-pane fade">
+        <div class="menuContent"></div>
         <h3>Material/Treatment</h3>
-
-
+      </div>
       </div>
     </div>
   </div>
 
 
-
-
-
-  <script>
-
-    
-    var map = L.map('map').setView([55, 15], 3);
-    L.tileLayer.provider('Stamen.Terrain').addTo(map);
-    var marker = L.marker([51.5, -0.09], { draggable: 'true' }).addTo(map);
-
-    for (var i = 0; i < doses.D_log.length; i++) {
-    circleMarker = new L.circleMarker([doses.lat[i], doses.lon[i]],{radius:1,color:"red",opacity:0.2})
-    .addTo(map);
-}
-    //marker._latlng
-    marker.on('dragend',function() {
-    const lat = this._latlng.lat;
-    const lon = this._latlng.lng;
-    const d = [];
-    for (let i=0;i<doses.lon.length;i++) {
-      d[i] = ((doses.lon[i] - lon)**2 + (doses.lat[i] - lat)**2)**0.5
-    }
-    ind = d.indexOf(Math.min(...d));
-    document.getElementById("D_ref").innerHTML = "<b>D<sub>Ref</sub> = " + Math.round(doses.D_log[ind]) + " dosedays </b>"
-    marker.setLatLng([doses.lat[ind], doses.lon[ind]]);
-    })
-    
-
-    
-</script>
-  <script>
-
-    function k1_func() {
-      var f1 = document.getElementById("form1")
-      if (f1[0].checked) {
-        var k1 = 1
-      } else if (f1[1].checked) {
-        var k1 = 1.2
-      } else if (f1[2].checked) {
-        var k1 = 1.4
-      }
-      console.log(k1)
-      document.getElementById("k1text").innerHTML = "<b>k<sub>1</sub> = " + k1 + "</b>"
-      return k1
-    }
-    function k2_func() {
-      var f2 = document.getElementById("form2")
-      if (f2[0].checked && f2[2].checked) {
-        var k2 = 1
-        document.getElementById("img").src = "./images/sidegrain_free.png"
-      } else if (f2[0].checked && f2[3].checked) {
-        var k2 = 1.5
-        document.getElementById("img").src = "./images7sidegrain_vented.png"
-      } else if (f2[0].checked && f2[4].checked) {
-        var k2 = 1.8
-        document.getElementById("img").src = "./images/sidegrain_contact.png"
-      } else if (f2[1].checked && f2[2].checked) {
-        var k2 = 1.5
-        document.getElementById("img").src = "./images/endgrain_free.png"
-      } else if (f2[1].checked && f2[3].checked) {
-        var k2 = 1.8
-        document.getElementById("img").src = "./images/endgrain_vented.png"
-      } else if (f2[1].checked && f2[4].checked) {
-        var k2 = 2.5
-        document.getElementById("img").src = "./images/endgrain_contact.png"
-      }
-      console.log(k2)
-      document.getElementById("k2text").innerHTML = "<b>k<sub>1</sub> = " + k2 + "</b>"
-      return k2
-    }
-  </script>
-
-<!-- add material table to tab-->
-<script>
-  var searchField = document.createElement("input")
-  searchField.type = 'text';
-  searchField.id = 'myInput';
-  searchField.placeholder = 'Search for names...';
-  
-  searchField.onkeyup = function() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("table");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[0];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }       
-    }
-  }
-
-  const body = document.body;
-  divBody = document.createElement('div')
-  divBody.style = "height: 200px; overflow-y:auto;"
-  tbl = document.createElement('table');
-  tbl.style.border = '1px solid black';
-  tbl.id = 'table';
-
-  var header = tbl.createTHead();
-  var row = header.insertRow(0);    
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  
-  cell1.innerHTML = "<b>Name</b>"; 
-  cell2.innerHTML = "<b>Latin name</b>"; 
-  cell3.innerHTML = "<b>Treatment</b>"; 
-  cell4.innerHTML = "<b>D<sub>Rd</sub></b>"; 
-
-  tblBody = document.createElement("tbody");
-  for (let i = 0; i < materialResistance.length; i++) {
-    const tr = tblBody.insertRow();
-    tr.style.border = '1px solid black';
-    tr.name = 'test'
-    const td = tr.insertCell();
-    const td2 = tr.insertCell();
-    const td3 = tr.insertCell();
-    const td4 = tr.insertCell();
-
-    td.innerHTML = materialResistance[i].name
-    td2.innerHTML = "<i>" +materialResistance[i].latinName + "</i>"
-    td3.innerHTML = materialResistance[i].treatment
-    td4.innerHTML = Math.round(materialResistance[i].resistanceDose)
-  }
-    
-  tbl.appendChild(tblBody)
-  divBody.appendChild(searchField)
-  divBody.appendChild(tbl);
-  prnt = document.getElementById("menu4")
-  prnt.appendChild(divBody);
-</script>
+<script src="/app.js"></script>
 </body>
 
 </html>
