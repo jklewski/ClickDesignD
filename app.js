@@ -14,11 +14,16 @@ doses = out;
 xhttp.open("GET", "./assets/DoseInputs.json", false);
 xhttp.send();
 DoseInputs = out;
+//first index 
+ind = 466;
+k1 = 1;
+k2 = 1;
+k3 = 1;    
 
 
     var map = L.map('map').setView([55, 15], 3);
     L.tileLayer.provider('Stamen.Terrain').addTo(map);
-    var marker = L.marker([51.5, -0.09], { draggable: 'true' }).addTo(map);
+    var marker = L.marker([DoseInputs[ind].lat, DoseInputs[ind].lon], { draggable: 'true' }).addTo(map);
 
     for (var i = 0; i < doses.D_log.length; i++) {
     circleMarker = new L.circleMarker([DoseInputs[i].lat, DoseInputs[i].lon],{radius:1,color:"red",opacity:0.2})
@@ -41,43 +46,40 @@ DoseInputs = out;
 
 
 
-
     function k1_func() {
         var f1 = document.getElementById("form1")
         if (f1[0].checked) {
-          var k1 = 1
+          k1 = 1
         } else if (f1[1].checked) {
-          var k1 = 1.2
+          k1 = 1.2
         } else if (f1[2].checked) {
-          var k1 = 1.4
+          k1 = 1.4
         }
-        console.log(k1)
-        document.getElementById("k1text").innerHTML = "<b>k<sub>1</sub> = " + k1 + "</b>"
+        updateResults()
         return k1
       }
       function k2_func() {
         var f2 = document.getElementById("form2")
         if (f2[0].checked && f2[2].checked) {
-          var k2 = 1
+          k2 = 1
           document.getElementById("img").src = "./images/sidegrain_free.png"
         } else if (f2[0].checked && f2[3].checked) {
-          var k2 = 1.5
+          k2 = 1.5
           document.getElementById("img").src = "./images7sidegrain_vented.png"
         } else if (f2[0].checked && f2[4].checked) {
-          var k2 = 1.8
+          k2 = 1.8
           document.getElementById("img").src = "./images/sidegrain_contact.png"
         } else if (f2[1].checked && f2[2].checked) {
-          var k2 = 1.5
+          k2 = 1.5
           document.getElementById("img").src = "./images/endgrain_free.png"
         } else if (f2[1].checked && f2[3].checked) {
-          var k2 = 1.8
+          k2 = 1.8
           document.getElementById("img").src = "./images/endgrain_vented.png"
         } else if (f2[1].checked && f2[4].checked) {
-          var k2 = 2.5
+          k2 = 2.5
           document.getElementById("img").src = "./images/endgrain_contact.png"
         }
-        console.log(k2)
-        document.getElementById("k2text").innerHTML = "<b>k<sub>1</sub> = " + k2 + "</b>"
+        updateResults()
         return k2
       }
 
@@ -151,5 +153,31 @@ DoseInputs = out;
   tbl.appendChild(tblBody)
   divBody.appendChild(searchField)
   divBody.appendChild(tbl);
-  prnt = document.getElementById("menu4")
+  prnt = document.getElementById("asdf")
   prnt.appendChild(divBody);
+
+  function updateResults() {
+    el = document.querySelector('#Results')
+  }
+
+resultbutton = document.querySelector("#resultButton")
+resultButton.addEventListener("click", () => {
+  var tblBody = document.getElementById("resultTableBody")
+  const tr = tblBody.insertRow();
+  tr.style.border = '1px solid black';
+  tr.name = 'test'
+  const td = tr.insertCell();
+  const td2 = tr.insertCell();
+  const td3 = tr.insertCell();
+  const td4 = tr.insertCell();
+  const td5 = tr.insertCell();
+  const td6 = tr.insertCell();
+  const td7 = tr.insertCell();
+  td.innerHTML = DoseInputs[ind].lat + ', ' + DoseInputs[ind].lon
+  td2.innerHTML = DoseInputs[ind].D_ref;
+  td3.innerHTML = k1
+  td4.innerHTML = k2
+  td5.innerHTML = DoseInputs[ind].D_ref*k1*k2
+  td6.innerHTML = 350
+  td7.innerHTML = Math.round(350/DoseInputs[ind].D_ref*k1*k2)
+})
