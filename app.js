@@ -42,6 +42,7 @@ marker.on('dragend', function () {
   //document.getElementById("D_ref").innerHTML = "<b>D<sub>Ref</sub> = " + Math.round(doses.D_log[ind]) + " dosedays </b>"
   marker.setLatLng([DoseInputs[ind].lat, DoseInputs[ind].lon]);
   inputSelected = DoseInputs[ind]
+  k2_func();
 })
 
 
@@ -55,7 +56,6 @@ function k1_func() {
   } else if (f1[2].checked) {
     k1 = 1.4
   }
-  updateResults()
   return k1
 }
 function k2_func() {
@@ -79,8 +79,6 @@ function k2_func() {
     k2 = DoseInputs[ind].k_trap4
     document.getElementById("img").src = "./images/endgrain_wo_gap.png"
   }
-  updateResults()
-  return k2
 }
 
 var searchField = document.createElement("input")
@@ -156,9 +154,6 @@ divBody.appendChild(tbl);
 prnt = document.getElementById("asdf")
 prnt.appendChild(divBody);
 
-function updateResults() {
-  el = document.querySelector('#Results')
-}
 
 resultbutton = document.querySelector("#resultButton")
 resultButton.addEventListener("click", () => {
@@ -177,7 +172,15 @@ resultButton.addEventListener("click", () => {
   td2.innerHTML = DoseInputs[ind].D_ref;
   td3.innerHTML = k2
   td4.innerHTML = k1
-  td5.innerHTML = DoseInputs[ind].D_ref * k1 * k2
+  td5.innerHTML = Math.round(DoseInputs[ind].D_ref * k1 * k2)
   td6.innerHTML = D_res
   td7.innerHTML = Math.round(D_res / (DoseInputs[ind].D_ref * k1 * k2))
 })
+
+/*
+function updateResults() {
+  el = document.querySelector('#Results')
+  k2_func();
+  k1_func();
+}
+*/
