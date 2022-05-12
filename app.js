@@ -61,22 +61,22 @@ k3 = 1;
       function k2_func() {
         var f2 = document.getElementById("form2")
         if (f2[0].checked && f2[2].checked) {
-          k2 = 1
+          k2 = 1.0
           document.getElementById("img").src = "./images/sidegrain_free.png"
         } else if (f2[0].checked && f2[3].checked) {
-          k2 = 1.5
+          k2 = DoseInputs[ind].k_trap1
           document.getElementById("img").src = "./images7sidegrain_vented.png"
         } else if (f2[0].checked && f2[4].checked) {
-          k2 = 1.8
-          document.getElementById("img").src = "./images/sidegrain_contact.png"
+          k2 = DoseInputs[ind].k_trap2
+          document.getElementById("img").src = "./images/sidegrain_contact_new.png"
         } else if (f2[1].checked && f2[2].checked) {
-          k2 = 1.5
+          k2 = DoseInputs[ind].k_trap5
           document.getElementById("img").src = "./images/endgrain_free.png"
         } else if (f2[1].checked && f2[3].checked) {
-          k2 = 1.8
+          k2 = DoseInputs[ind].k_trap3
           document.getElementById("img").src = "./images/endgrain_vented.png"
         } else if (f2[1].checked && f2[4].checked) {
-          k2 = 2.5
+          k2 = DoseInputs[ind].k_trap4
           document.getElementById("img").src = "./images/endgrain_contact.png"
         }
         updateResults()
@@ -175,9 +175,9 @@ resultButton.addEventListener("click", () => {
   const td7 = tr.insertCell();
   td.innerHTML = DoseInputs[ind].lat + ', ' + DoseInputs[ind].lon
   td2.innerHTML = DoseInputs[ind].D_ref;
-  td3.innerHTML = k1
-  td4.innerHTML = k2
+  td3.innerHTML = k2
+  td4.innerHTML = k1
   td5.innerHTML = DoseInputs[ind].D_ref*k1*k2
-  td6.innerHTML = 350
-  td7.innerHTML = Math.round(350/DoseInputs[ind].D_ref*k1*k2)
+  td6.innerHTML = D_res
+  td7.innerHTML = Math.round(D_res/(DoseInputs[ind].D_ref*k1*k2))
 })
