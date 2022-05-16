@@ -14,18 +14,36 @@ doses = out;
 xhttp.open("GET", "./assets/DoseInputs.json", false);
 xhttp.send();
 DoseInputs = out;
-//initial values 
+xhttp.open("GET", "./assets/dosesIG.json", false);
+xhttp.send();
+DoseInputsIG = out; 
+//Define intitial state 
+model = document.getElementById("modelform")[0].checked
+if (model) {
 ind = 466;
 k1 = 1;
 k2 = 1;
 k3 = 1;
-D_res = 325
+}
+else {
+  ind = 466;
+  D_res = 325
+}
 
+function createMap(model) {
+  mapDiv = document.createElement('div')
+  mapDiv.id = 'map'
+  mapDivContainer = document.getElementById('mapContainer')
+  mapDivContainer.appendChild(mapDiv)
+  
+
+  if (model) {
+  
 var map = L.map('map').setView([55, 15], 3);
 L.tileLayer.provider('Stamen.Terrain').addTo(map);
 var marker = L.marker([DoseInputs[ind].lat, DoseInputs[ind].lon], { draggable: 'true' }).addTo(map);
 
-for (var i = 0; i < doses.D_log.length; i++) {
+for (var i = 0; i < DoseInputs.length; i++) {
   circleMarker = new L.circleMarker([DoseInputs[i].lat, DoseInputs[i].lon], { radius: 1, color: "red", opacity: 0.2 })
     .addTo(map);
 }
@@ -45,6 +63,37 @@ marker.on('dragend', function () {
   k2_func();
 })
 
+} else {
+  var map = L.map('map').setView([55, 15], 3);
+  L.tileLayer.provider('Stamen.Terrain').addTo(map);
+  var marker = L.marker([DoseInputsIG.Lats[ind], DoseInputsIG.Lons[ind]], { draggable: 'true' }).addTo(map);
+
+  marker.on('dragend', function () {
+    const lat = this._latlng.lat;
+    const lon = this._latlng.lng;
+    const d = [];
+    //find index of closest match
+    for (let i = 0; i < DoseInputsIG.Lons.length; i++) {
+      d[i] = ((DoseInputsIG.Lons[i] - lon) ** 2 + (DoseInputsIG.Lats[i] - lat) ** 2) ** 0.5
+    }
+    ind = d.indexOf(Math.min(...d));
+    //document.getElementById("D_ref").innerHTML = "<b>D<sub>Ref</sub> = " + Math.round(doses.D_log[ind]) + " dosedays </b>"
+    marker.setLatLng([DoseInputsIG.Lats[ind], DoseInputsIG.Lons[ind]]);
+    inputSelected = 1
+  })
+  
+}
+
+var menu0Tab = document.getElementById('menu0');
+var observer1 = new MutationObserver(function(){
+  if(menu0Tab.style.display != 'none'){
+    map.invalidateSize();
+  }
+});
+observer1.observe(menu0Tab, {attributes: true});  
+}
+createMap(true)
+
 
 
 function k1_func() {
@@ -58,6 +107,7 @@ function k1_func() {
   }
   return k1
 }
+
 function k2_func() {
   var f2 = document.getElementById("form2")
   if (f2[0].checked && f2[2].checked) {
@@ -80,6 +130,7 @@ function k2_func() {
     document.getElementById("img").src = "./images/endgrain_wo_gap.png"
   }
 }
+
 
 var searchField = document.createElement("input")
 searchField.type = 'text';
@@ -105,9 +156,14 @@ searchField.onkeyup = function () {
   }
 }
 
+
+function createTable(model) {
+if (model) {
+}
 const body = document.body;
 divBody = document.createElement('div')
 divBody.style = "height: 300px; overflow-y:auto;"
+divBody.id = "tblBody"
 tbl = document.createElement('table');
 tbl.style.border = '3px solid black';
 tbl.id = 'table';
@@ -153,6 +209,8 @@ divBody.appendChild(searchField)
 divBody.appendChild(tbl);
 prnt = document.getElementById("asdf")
 prnt.appendChild(divBody);
+}
+createTable(true)
 
 
 resultbutton = document.querySelector("#resultButton")
@@ -184,3 +242,25 @@ function updateResults() {
   k1_func();
 }
 */
+
+
+function model_func() {
+model = document.getElementById("modelform")[0].checked
+var tbl = document.getElementById('tblBody')
+tbl.parentNode.removeChild(tbl)
+createTable(model)
+var map = document.getElementById("map")
+map.parentNode.removeChild(map)
+createMap(model)
+
+if (!model) {
+document.getElementById('t2').style.display = 'none'
+document.getElementById('t3').style.display = 'none'
+document.getElementById('t4').style.display = 'none'
+}
+else if  (model) {
+ document.getElementById('t2').style.display = ''
+ document.getElementById('t3').style.display = ''
+ document.getElementById('t4').style.display = ''
+}
+}
