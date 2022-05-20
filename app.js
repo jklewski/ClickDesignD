@@ -254,9 +254,14 @@ resultButton.addEventListener("click", () => {
     td2.innerHTML = 'NA'
     td3.innerHTML = 'NA'
     td4.innerHTML = 'NA'
-    td5.innerHTML = Math.round(DoseInputsIG.Doses[ind])
-    td6.innerHTML = D_res
-    td7.innerHTML = Math.round(D_res / (DoseInputsIG.Doses[ind]))
+    if (DoseInputsIG.Doses[ind]>0) {
+    td5.innerHTML = Math.round(DoseInputsIG.Doses[ind]) //86,40376443
+    td7.innerHTML = Math.round(((D_res/325)*86.4) / (DoseInputsIG.Doses[ind]))
+    } else {
+      td5.innerHTML = "N/A"
+      td7.innerHTML = "N/A"
+    }
+    td6.innerHTML = Math.round((D_res/325)*86.4);
   }
 })
 
