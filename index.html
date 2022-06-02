@@ -26,7 +26,13 @@
     $(document).ready(function () {
       $("#table tr").click(function () {
         $(this).addClass('selected').siblings().removeClass('selected');
+        if (model) {
         var value = $(this).find('td:nth-child(4)').html();
+        } else {
+        var value = $(this).find('td:nth-child(5)').html();  
+        }
+        speciesName = $(this).find('td:nth-child(1)').html();
+        treatmentName = $(this).find('td:nth-child(3)').html();
         D_res = value
       });
     })
@@ -46,7 +52,7 @@
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#home">Model</a></li>
       <li id="t1"><a data-toggle="tab" href="#menu0">Location</a></li>
-      <li id="t2"><a data-toggle="tab" href="#menu1">Local conditions</a></li>
+      <li id="t2" style="display:none"><a data-toggle="tab" href="#menu1">Local conditions</a></li>
       <li id="t3"><a data-toggle="tab" href="#menu2">Detailing</a></li>
       <li id="t4"><a data-toggle="tab" href="#menu3">Shelter</a></li>
       <li id="t5"><a data-toggle="tab" href="#menu4">Material</a></li>
@@ -54,8 +60,6 @@
     </ul>
 
     <div class="tab-content">
-
-      
         <div id="home" class="tab-pane fade in active">
           <div class="menuContent">
           <form id="modelform" onchange="model_func()">
@@ -64,6 +68,7 @@
             <label for="open">Above-ground</label><br>
             <input type="radio" id="1top2" name="model" value="forest">
             <label for="forest">In-ground</label><br>
+            <img id="img_model" width="500px" src="./images/tradack_AG.png">
           </form>
         </div>
       </div>
@@ -157,15 +162,25 @@
           <h1 id="Results"></h1>
           <div style="height: 300px; overflow-y:auto;">
             <table id="resultTable">
+              <caption id="resultCaption">D<sub>E0_rel</sub> = location; <br>
+                k<sub>1</sub> = detailing (relative);<br>
+                k<sub>2</sub> = shelter & splash(relative);<br>
+                D<sub>E_rel</sub> = exposure;<br>
+                D<sub>R_rel</sub> = resistance;<br>
+                SL = service life (years);
+              </caption>
+              
               <thead>
                 <tr>
                   <th>Loc</th>
-                  <th>Ref dose</th>
-                  <th>Detail</th>
-                  <th>Shelter</th>
-                  <th>Exposure</th>
-                  <th>Res dose</th>
-                  <th>SL </th>
+                  <th>Species</th>
+                  <th>Treatment</th>
+                  <th>D<sub>E0_rel</sub></th>
+                  <th>k<sub>1</sub></th>
+                  <th>k<sub>2</sub></th>
+                  <th>D<sub>E_rel</sub></th>
+                  <th>D<sub>R_rel</sub></th>
+                  <th>SL</th>
                 </tr>
               </thead>
               <tbody id="resultTableBody">

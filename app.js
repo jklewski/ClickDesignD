@@ -8,9 +8,6 @@ xhttp.onload = function () {
 xhttp.open("GET", "./assets/MaterialResistance.json", false);
 xhttp.send();
 materialResistance = out;
-xhttp.open("GET", "./assets/doses.json", false);
-xhttp.send();
-doses = out;
 xhttp.open("GET", "./assets/DoseInputs.json", false);
 xhttp.send();
 DoseInputs = out;
@@ -24,12 +21,9 @@ if (model) {
   k1 = 1;
   k2 = 1;
   k3 = 1;
-  ind = 466;
-  D_res = 325
-}
-else {
-
-
+  D_res = 1
+  speciesName = 'Norway Spruce'
+  treatmentName = 'None'
 }
 
 function createMap(model) {
@@ -40,16 +34,14 @@ function createMap(model) {
 
 
   if (model) {
-
     var map = L.map('map').setView([55, 15], 3);
     L.tileLayer.provider('Stamen.Terrain').addTo(map);
     var marker = L.marker([DoseInputs[ind].lat, DoseInputs[ind].lon], { draggable: 'true' }).addTo(map);
-
     for (var i = 0; i < DoseInputs.length; i++) {
       circleMarker = new L.circleMarker([DoseInputs[i].lat, DoseInputs[i].lon], { radius: 1, color: "red", opacity: 0.2 })
         .addTo(map);
     }
-    //marker._latlng
+    //get marker lat and lon
     marker.on('dragend', function () {
       const lat = this._latlng.lat;
       const lon = this._latlng.lng;
@@ -83,7 +75,6 @@ function createMap(model) {
       marker.setLatLng([DoseInputsIG.Lats[ind], DoseInputsIG.Lons[ind]]);
       inputSelected = 1
     })
-
   }
 
   var menu0Tab = document.getElementById('menu0');
@@ -96,8 +87,7 @@ function createMap(model) {
 }
 createMap(true)
 
-
-
+//function to get values when changing "location tab" 
 function k1_func() {
   var f1 = document.getElementById("form1")
   if (f1[0].checked) {
@@ -110,6 +100,7 @@ function k1_func() {
   return k1
 }
 
+//function controlling change in "detailing tab" 
 function k2_func() {
   var f2 = document.getElementById("form2")
   if (f2[0].checked && f2[2].checked) {
@@ -208,8 +199,8 @@ function createTable(model) {
     td.innerHTML = materialResistance[i].name
     td2.innerHTML = "<i>" + materialResistance[i].latinName + "</i>"
     td3.innerHTML = materialResistance[i].treatment
-    td4.innerHTML = Math.round(materialResistance[i].resistanceDoseUC3)
-    td5.innerHTML = Math.round(materialResistance[i].resistanceDoseUC4)
+    td4.innerHTML = Math.round(materialResistance[i].resistanceDoseUC3/325*10)/10
+    td5.innerHTML = Math.round(materialResistance[i].resistanceDoseUC4/325*10)/10
   }
 
   tbl.appendChild(tblBody)
@@ -241,27 +232,34 @@ resultButton.addEventListener("click", () => {
   const td5 = tr.insertCell();
   const td6 = tr.insertCell();
   const td7 = tr.insertCell();
+  const td8 = tr.insertCell();
+  const td9 = tr.insertCell();
   if (model) {
     td.innerHTML = DoseInputs[ind].lat + ', ' + DoseInputs[ind].lon
-    td2.innerHTML = DoseInputs[ind].D_ref;
-    td3.innerHTML = k2
-    td4.innerHTML = k1
-    td5.innerHTML = Math.round(DoseInputs[ind].D_ref * k1 * k2)
-    td6.innerHTML = D_res
-    td7.innerHTML = Math.round(D_res / (DoseInputs[ind].D_ref * k1 * k2))
-  } else if (!model) {
+    td2.innerHTML = speciesName
+    td3.innerHTML = treatmentName
+    td4.innerHTML = Math.round(DoseInputs[ind].D_ref/DoseInputs[466].D_ref*100)/100; //dose relative to Uppsala
+    td5.innerHTML = k2 //dose relative to reference
+    td6.innerHTML = k1 //dose relative to reference
+    td7.innerHTML = Math.round((DoseInputs[ind].D_ref/DoseInputs[466].D_ref)*k2*k1*100)/100 //dose relative to reference board in uppsala
+    td8.innerHTML = D_res //resistance relative to norway spruce
+    td9.innerHTML = Math.round(10*D_res*325 / (DoseInputs[ind].D_ref * k1 * k2))/10
+     } else if (!model) {
+    Uppsala_dose = DoseInputsIG.Doses[2633]
     td.innerHTML = DoseInputsIG.Lats[ind] + ', ' + DoseInputsIG.Lons[ind]
-    td2.innerHTML = 'NA'
-    td3.innerHTML = 'NA'
-    td4.innerHTML = 'NA'
+    td2.innerHTML = speciesName
+    td3.innerHTML = treatmentName
+    td4.innerHTML = Math.round(DoseInputsIG.Doses[ind]/Uppsala_dose)
+    td5.innerHTML = 'NA'
+    td6.innerHTML = 'NA'
     if (DoseInputsIG.Doses[ind]>0) {
-    td5.innerHTML = Math.round(DoseInputsIG.Doses[ind]) //86,40376443
-    td7.innerHTML = Math.round(((D_res/325)*86.4) / (DoseInputsIG.Doses[ind]))
+    td7.innerHTML = Math.round(DoseInputsIG.Doses[ind]/Uppsala_dose) //exposure dose relative uppsala
+    td9.innerHTML = Math.round(((D_res)*86.4) / (DoseInputsIG.Doses[ind])) //service life
     } else {
-      td5.innerHTML = "N/A"
       td7.innerHTML = "N/A"
+      td9.innerHTML = "N/A"
     }
-    td6.innerHTML = Math.round((D_res/325)*86.4);
+    td8.innerHTML = Math.round((D_res)); //relative resistance dose
   }
 })
 
@@ -282,6 +280,7 @@ function model_func() {
     document.getElementById('t2').style.display = 'none'
     document.getElementById('t3').style.display = 'none'
     document.getElementById('t4').style.display = 'none'
+    document.getElementById("img_model").src = "./images/tradack_IG.png"
     ind = 466;
   }
   else if (model) {
@@ -289,6 +288,7 @@ function model_func() {
     document.getElementById('t2').style.display = ''
     document.getElementById('t3').style.display = ''
     document.getElementById('t4').style.display = ''
+    document.getElementById("img_model").src = "./images/tradack_AG.png"
   }
 
   var tbl = document.getElementById('tblBody')
@@ -297,6 +297,4 @@ function model_func() {
   var map = document.getElementById("map")
   map.parentNode.removeChild(map)
   createMap(model)
-
-
 }

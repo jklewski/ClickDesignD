@@ -96,3 +96,9 @@ tr:active{
   box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
               inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
+
+caption {
+  padding: 10px;
+  caption-side: bottom;
+  font-size: 10px;
+}
