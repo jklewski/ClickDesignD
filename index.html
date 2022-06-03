@@ -41,15 +41,24 @@
 
       $(".shelter_box").change(function(){
         if (document.getElementById("overhang").checked) {
-          document.getElementById("e").style.display = ''
-          document.getElementById("d").style.display = ''
-          document.getElementById("label_e").style.display = ''
-          document.getElementById("label_d").style.display = ''
+          document.getElementById("e").style.visibility = 'visible'
+          document.getElementById("d").style.visibility = 'visible'
+          document.getElementById("label_e").style.visibility = 'visible'
+          document.getElementById("label_d").style.visibility = 'visible'
         } else {
-          document.getElementById("e").style.display = 'none'
-          document.getElementById("d").style.display = 'none'
-          document.getElementById("label_e").style.display = 'none'
-          document.getElementById("label_d").style.display = 'none'
+          document.getElementById("e").style.visibility = 'hidden'
+          document.getElementById("d").style.visibility = 'hidden'
+          document.getElementById("label_e").style.visibility = 'hidden'
+          document.getElementById("label_d").style.visibility = 'hidden'
+        }
+        if (document.getElementById("overhang").checked && (document.getElementById("vertical").checked)) {
+          document.getElementById("img2").src = "./images/wall_overhang.png"
+        } else if (document.getElementById("overhang").checked && (document.getElementById("vertical").checked==false)) {
+          document.getElementById("img2").src = "./images/wall_overhang_deck.png"
+        } else if (document.getElementById("overhang").checked==false && (document.getElementById("vertical").checked)) {
+          document.getElementById("img2").src = "./images/wall_nooverhang.png"
+        } else if (document.getElementById("overhang").checked==false && (document.getElementById("vertical").checked==false)) {
+          document.getElementById("img2").src = "./images/wall_nooverhang_deck.png"
         }
       })
     })
@@ -155,17 +164,17 @@
             A roof overhang has an obvious sheltering effect on the cladding of a wall, but simply orienting
             a wooden product vertically will reduce the duration of wetting and thereby increase service
             life.</p>
-          <input type="checkbox" class="shelter shelter_box" id="vertical" name="vertical" checked>
+          <input type="checkbox" class="shelter shelter_box" id="vertical" name="vertical">
           <label for="checkbox">Vertical member (subjected to driving rain)</label><br>
-          <input type="checkbox" class="shelter shelter_box" id="overhang" name="overhang" checked>
+          <input type="checkbox" class="shelter shelter_box" id="overhang" name="overhang">
           <label for="checkbox">Roof overhang</label><br>
-          <input type="text" class='shelter' id="a" name="groundDist" value="0.5" style="background-color:black">
+          <input type="text" class='shelter' id="a" name="groundDist" value="0.5" style="background-color:black;">
           <label for="contact1" id="label_a">distance to ground (a)</label><br>
-          <input type="text" class='shelter' id="e" name="overhang" value="0.5" style="background-color:black">
-          <label for="overhang" id="label_e">roof overhang (e)</label><br>
-          <input type="text" class='shelter' id="d" name="dist" value="1.0" style="background-color:black">
-          <label for="dist" id="label_d">distance from shelter (d)</label><br>
-          <img id="img2" width="500px" src="./images/Roof overhang.png">
+          <input type="text" class='shelter' id="e" name="overhang" value="0.5" style="background-color:black;visibility:hidden">
+          <label for="overhang" id="label_e" style="visibility:hidden">roof overhang (e)</label><br>
+          <input type="text" class='shelter' id="d" name="dist" value="1.0" style="background-color:black;visibility:hidden">
+          <label for="dist" id="label_d" style="visibility:hidden">distance from shelter (d)</label><br>
+          <img id="img2" width="500px" src="./images/wall_nooverhang_deck.png">
         </div>
       </div>
       <div id="menu4" class="tab-pane fade">

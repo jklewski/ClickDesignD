@@ -93,9 +93,9 @@ function k1_func() {
   if (f1[0].checked) {
     k1 = 1
   } else if (f1[1].checked) {
-    k1 = 1.2
+    k1 = 1
   } else if (f1[2].checked) {
-    k1 = 1.4
+    k1 = 1
   }
   return k1
 }
@@ -243,9 +243,9 @@ resultButton.addEventListener("click", () => {
     shelteringFunc()  
     td5.innerHTML = Math.round(k2*100)/100 //dose relative to reference
     td6.innerHTML = Math.round(k3*100)/100 //dose relative to full exposure
-    td7.innerHTML = Math.round((DoseInputs[ind].D_ref/DoseInputs[466].D_ref)*k3*k2*k1*100)/100 //dose relative to reference board in uppsala
+    td7.innerHTML = Math.round((DoseInputs[ind].D_ref/DoseInputs[466].D_ref)*k3*k2*100)/100 //dose relative to reference board in uppsala
     td8.innerHTML = D_res //resistance relative to norway spruce
-    td9.innerHTML = Math.round(10*D_res*325 / (DoseInputs[ind].D_ref * k1 * k2 *k3))/10
+    td9.innerHTML = Math.round(10*D_res*325 / (DoseInputs[ind].D_ref * k2 *k3))/10
     } else if (!model) {
     Uppsala_dose = DoseInputsIG.Doses[2633]
     td.innerHTML = DoseInputsIG.Lats[ind] + ', ' + DoseInputsIG.Lons[ind]
@@ -278,25 +278,23 @@ function shelteringFunc() {
   let e = document.getElementById("e").value
   let d = document.getElementById("d").value
   let a = document.getElementById("a").value
-  let exposedDose = DoseInputs[ind].D_ref*k1 //dose with rain and detailing
+  let exposedDose = DoseInputs[ind].D_ref*k2 //dose with rain and detailing
   let shelteredDose = DoseInputs[ind].D_shelt //dose without rain
   let rainDeltaDose = exposedDose-shelteredDose //effect of rain, horizontal and no shelter
   let drivingRainFactor = DoseInputs[ind].WDR_ratio //ratio of driving rain to normal rain
-  //let horizontalRainFactor = DoseInputs[ind].WDR_horizontal_ratio //vertical component of driving rain
+  let horizontalRainFactor = DoseInputs[ind].WDR_ratio_h //vertical component of driving rain
   if (document.getElementById("vertical").checked == true && document.getElementById("overhang").checked == true) {
-    let k_shelter = 1-Math.max(1-e/d,0)
-    reducedDose =  shelteredDose + (drivingRainFactor * rainDeltaDose * k_shelter) //reduction for vertical surfaces by R_wdr/R_h
+    let k_shelter = Math.max(1-e/d,0)
+    reducedDose =  shelteredDose + (drivingRainFactor * k_shelter) * rainDeltaDose //reduction for vertical surfaces by R_wdr/R_h
   } else if (document.getElementById("vertical").checked == true && document.getElementById("overhang").checked == false) {
-    reducedDose =  shelteredDose + (drivingRainFactor * rainDeltaDose)
-  } else if (document.getElementById("vertical").checked == false && document.getElementById("overhang").checked == true) {
-    reducedDose = exposedDose //placeholder, until implemented
-    //let k_shelter = 1-Math.max(1-e/d,0)
-    //reducedDose =  shelteredDose + (horizontalRainFactor * rainDeltaDose * k_shelter) //reduction for vertical surfaces by R_wdr/R_h
+    reducedDose =  shelteredDose + (drivingRainFactor) * rainDeltaDose
+  } else if (document.getElementById("vertical").checked == false && document.getElementById("overhang").checked == true) {0
+    let k_shelter = Math.max(1-e/d,0)
+    reducedDose =  shelteredDose + (horizontalRainFactor * rainDeltaDose * k_shelter) //reduction for vertical surfaces by R_wdr/R_h
   } else if (document.getElementById("vertical").checked == false && document.getElementById("overhang").checked == false) {
     reducedDose = exposedDose
   }
-
-  k3 = reducedDose/(exposedDose) 
+  k3 = reducedDose/exposedDose
 }
 
 function model_func() {
