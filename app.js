@@ -27,10 +27,7 @@ if (model) {
 }
 
 function createMap(model) {
-  mapDiv = document.createElement('div')
-  mapDiv.id = 'map'
-  mapDivContainer = document.getElementById('mapContainer')
-  mapDivContainer.appendChild(mapDiv)
+  mapDiv = document.getElementById('map')
 
 
   if (model) {
@@ -51,7 +48,6 @@ function createMap(model) {
         d[i] = ((DoseInputs[i].lon - lon) ** 2 + (DoseInputs[i].lat - lat) ** 2) ** 0.5
       }
       ind = d.indexOf(Math.min(...d));
-      //document.getElementById("D_ref").innerHTML = "<b>D<sub>Ref</sub> = " + Math.round(doses.D_log[ind]) + " dosedays </b>"
       marker.setLatLng([DoseInputs[ind].lat, DoseInputs[ind].lon]);
       inputSelected = DoseInputs[ind]
       k2_func();
@@ -84,6 +80,7 @@ function createMap(model) {
     }
   });
   observer1.observe(menu0Tab, { attributes: true });
+
 }
 createMap(true)
 
