@@ -27,8 +27,13 @@ if (model) {
 }
 
 function createMap(model) {
-  mapDiv = document.getElementById('map')
-
+  document.getElementById('map').remove()  
+  mapDivContainer = document.getElementById("menu0")
+  mapDiv = document.createElement('div')
+  mapDiv.id = 'map'
+  mapDivContainer.appendChild(mapDiv)
+  //mapDiv = document.getElementById('map')
+  
 
   if (model) {
     var map = L.map('map').setView([55, 15], 3);
@@ -316,7 +321,7 @@ function model_func() {
   var tbl = document.getElementById('tblBody')
   tbl.parentNode.removeChild(tbl)
   createTable(model)
-  var map = document.getElementById("map")
-  map.parentNode.removeChild(map)
+  //var map = document.getElementById("map")
+  //map.parentNode.removeChild(map)
   createMap(model)
 }
