@@ -1,6 +1,8 @@
 html body {
-  color:rgb(220,220,220);
+  background-color:#303030;
+  color:white
 }
+
 
 .mainContainer {
   background-color:black;
@@ -8,40 +10,54 @@ html body {
 }
 
 .nav-tabs {
-  background-color:#212121;
+  background-color:black
 }
 
-#mainContainer {
-  width: 100vw;
-  height: 100vh;
-
-  background-color:#303030
+.mainContainer {
+  background-color:black;
+  color:black;
 }
 
 .menuContent {
   width:700px;
-  margin-left:10px;
-  background-color:#424242
+  margin:auto;
+  height: 100%;
+  background-color:#303030;
 }
 
 .tab-content {
   position:relative;
-  height: 500px;
+  height: 100%;
   width: 100vw;
+  border: 5px solid black
 }
 
-.tab-pane {
-  background-color:#303030; 
-  height:100%;
+input {
+  color:white;
+}
+
+#docDiv {
+  width: 800px;
+  height: 450px;
+  margin:auto;
+}
+
+#page {
+  width: 800px;
+  height: 450px;
 }
 
 #map{
   position: absolute;
   top: 20px;
   left: 20px;
+  right: 20px;
+  height:70vh;
   bottom: 0;
-  width: 40%;
+
 }
+
+
 
 
 tr:nth-child(even) {
@@ -74,6 +90,11 @@ tr:active{
   background-color: white;
   color:red;
 
+}
+
+#home {
+  background:#303030;
+  margin-top:35px;
 }
 
 #resultButton {

@@ -8,9 +8,23 @@
   <link rel="stylesheet" href="styles.css">
 
   <!-- Boostrap-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
 
   <!-- load leaflet-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -69,21 +83,49 @@
 </head>
 
 <body>
-  <div class="container-fluid text-white bg-dark text-center" style="background-color:#212121">
-    <h1 class="display-1"> Decay module </h1>
+ 
+  <div class="container-fluid text-center" style="background-color:black; color:white">
+    <br>
+    <h1> Decay module</h1>
+    <br>
   </div>
 
 
-  <div id="mainContainer">
-    <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#home">Model</a></li>
-      <li id="t1"><a data-toggle="tab" href="#menu0">Location</a></li>
-      <li id="t2" style="display:none"><a data-toggle="tab" href="#menu1">Local conditions</a></li>
-      <li id="t3"><a data-toggle="tab" href="#menu2">Detailing</a></li>
-      <li id="t4"><a data-toggle="tab" href="#menu3">Shelter</a></li>
-      <li id="t5"><a data-toggle="tab" href="#menu4">Material</a></li>
-      <li id="t6"><a data-toggle="tab" href="#menu5" style="color:blueviolet;font-weight:bold">Service life</a></li>
-    </ul>
+
+
+
+  <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link nav-item" id="t0" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+        aria-selected="true">Model</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link nav-item active" id="t1" data-toggle="tab" href="#menu0" role="tab" aria-controls="menu0"
+        aria-selected="false">Location</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link nav-item" id="t2" data-toggle="tab" href="#menu1" role="tab" aria-controls="menu1"
+        aria-selected="false" style="display:none;">Local conditions</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link nav-item" id="t3" data-toggle="tab" href="#menu2" role="tab" aria-controls="menu2"
+        aria-selected="false">Detailing</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link nav-item" id="t4" data-toggle="tab" href="#menu3" role="tab" aria-controls="menu3"
+        aria-selected="false">Shelter</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link nav-item" id="t5" data-toggle="tab" href="#menu4" role="tab" aria-controls="menu4"
+        aria-selected="false">Material</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link nav-item" id="t6" data-toggle="tab" href="#menu5" role="tab" aria-controls="menu5"
+        aria-selected="false">Results</a>
+    </li>
+
+
+  </ul>
 
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
@@ -100,9 +142,9 @@
       </div>
 
       <div id="menu0" class="tab-pane fade">
-        
+         <div id="mapwrapper">
           <div id="map"></div>
-        
+        </div>
       </div>
       <!-- 2ND MENU-->
       <div id="menu1" class="tab-pane fade">
@@ -163,9 +205,9 @@
           <label for="checkbox">Vertical member (subjected to driving rain)</label><br>
           <input type="checkbox" class="shelter shelter_box" id="overhang" name="overhang">
           <label for="checkbox">Roof overhang</label><br>
-          <input type="text" class='shelter' id="a" name="groundDist" value="0.5" style="background-color:black;">
+          <input type="text" class='shelter' id="a" name="groundDist" disabled value="NA" style="background-color:black;" >
           <label for="contact1" id="label_a">distance to ground (a)</label><br>
-          <input type="text" class='shelter' id="e" name="overhang" value="0.5" style="background-color:black;visibility:hidden">
+          <input type="text" class='shelter' id="e" name="overhang" value="0" style="background-color:black;visibility:hidden">
           <label for="overhang" id="label_e" style="visibility:hidden">roof overhang (e)</label><br>
           <input type="text" class='shelter' id="d" name="dist" value="1.0" style="background-color:black;visibility:hidden">
           <label for="dist" id="label_d" style="visibility:hidden">distance from shelter (d)</label><br>

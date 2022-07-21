@@ -25,10 +25,12 @@ if (model) {
   speciesName = 'Norway Spruce'
   treatmentName = 'None'
 }
+else {
+}
 
 function createMap(model) {
   document.getElementById('map').remove()  
-  mapDivContainer = document.getElementById("menu0")
+  mapDivContainer = document.getElementById("mapwrapper")
   mapDiv = document.createElement('div')
   mapDiv.id = 'map'
   mapDivContainer.appendChild(mapDiv)
@@ -211,11 +213,16 @@ function createTable(model) {
   prnt = document.getElementById("asdf")
   prnt.appendChild(divBody);
 
+
+
   let nth = model*4 + !model*5
   $("#table tr").click(function () {
     $(this).addClass('selected').siblings().removeClass('selected');
     var value = $(this).find('td:nth-child('+nth+')').html();
+    speciesName = $(this).find('td:first').html();
+    treatmentName = $(this).find('td:nth-child(3)').html();
     D_res = value
+
   })
 }
 createTable(true)
@@ -309,9 +316,21 @@ function model_func() {
     document.getElementById('t4').style.display = 'none'
     document.getElementById("img_model").src = "./images/tradack_IG.png"
     ind = 466;
+    k1 = 1;
+    k2 = 1;
+    k3 = 1;
+    D_res = 1
+    speciesName = 'Norway Spruce'
+    treatmentName = 'None'
   }
   else if (model) {
     ind = 466;
+    k1 = 1;
+    k2 = 1;
+    k3 = 1;
+    D_res = 1
+    speciesName = 'Norway Spruce'
+    treatmentName = 'None'
     //document.getElementById('t2').style.display = ''
     document.getElementById('t3').style.display = ''
     document.getElementById('t4').style.display = ''
