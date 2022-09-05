@@ -13,23 +13,22 @@ html body {
   background-color:black
 }
 
-.mainContainer {
-  background-color:black;
-  color:black;
-}
-
 .menuContent {
   width:700px;
   margin:auto;
-  height: 100%;
+
   background-color:#303030;
 }
 
 .tab-content {
   position:relative;
-  height: 100%;
   width: 100vw;
-  border: 5px solid black
+}
+
+#materialDiv {
+  height: 80vh; 
+  overflow-y:auto;
+  border-bottom: solid 3px black
 }
 
 input {
@@ -38,13 +37,18 @@ input {
 
 #docDiv {
   width: 800px;
-  height: 450px;
+
   margin:auto;
+}
+
+.tableDiv {
+ 
+  overflow-y:auto;
 }
 
 #page {
   width: 800px;
-  height: 450px;
+  height: 100vhx;
 }
 
 #map{

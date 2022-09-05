@@ -159,7 +159,7 @@ function createTable(model) {
   }
   const body = document.body;
   divBody = document.createElement('div')
-  divBody.style = "height: 300px; overflow-y:auto;"
+  divBody.className = "materialDiv"
   divBody.id = "tblBody"
   tbl = document.createElement('table');
   tbl.style.border = '3px solid black';
@@ -210,7 +210,7 @@ function createTable(model) {
   tbl.appendChild(tblBody)
   divBody.appendChild(searchField)
   divBody.appendChild(tbl);
-  prnt = document.getElementById("asdf")
+  prnt = document.getElementById("materialDiv")
   prnt.appendChild(divBody);
 
 
@@ -274,13 +274,7 @@ resultButton.addEventListener("click", () => {
   }
 })
 
-/*
-function updateResults() {
-  el = document.querySelector('#Results')
-  k2_func();
-  k1_func();
-}
-*/
+
 function shelteringFunc() {
   //roof overhang + vertical surface = only fraction of driving rain will hit the surface
   //roof overhang + horizontal surface = only fraction of horizontal rain will hit the surface 
@@ -340,7 +334,5 @@ function model_func() {
   var tbl = document.getElementById('tblBody')
   tbl.parentNode.removeChild(tbl)
   createTable(model)
-  //var map = document.getElementById("map")
-  //map.parentNode.removeChild(map)
   createMap(model)
 }

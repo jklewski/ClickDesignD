@@ -12,19 +12,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"></script>
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-  crossorigin="anonymous"></script>
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
   <!-- load leaflet-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -41,19 +41,19 @@
       $("#table tr").click(function () {
         $(this).addClass('selected').siblings().removeClass('selected');
         if (model) {
-        var value = $(this).find('td:nth-child(4)').html();
+          var value = $(this).find('td:nth-child(4)').html();
         } else {
-        var value = $(this).find('td:nth-child(5)').html();  
+          var value = $(this).find('td:nth-child(5)').html();
         }
         speciesName = $(this).find('td:first').html();
         treatmentName = $(this).find('td:nth-child(3)').html();
         D_res = value
       });
-      $(".shelter").change(function(){
-        console.log('aloha')
+      $(".shelter").change(function () {
+
       })
 
-      $(".shelter_box").change(function(){
+      $(".shelter_box").change(function () {
         if (document.getElementById("overhang").checked) {
           document.getElementById("e").style.visibility = 'visible'
           document.getElementById("d").style.visibility = 'visible'
@@ -67,23 +67,22 @@
         }
         if (document.getElementById("overhang").checked && (document.getElementById("vertical").checked)) {
           document.getElementById("img2").src = "./images/wall_overhang.png"
-        } else if (document.getElementById("overhang").checked && (document.getElementById("vertical").checked==false)) {
+        } else if (document.getElementById("overhang").checked && (document.getElementById("vertical").checked == false)) {
           document.getElementById("img2").src = "./images/wall_overhang_deck.png"
-        } else if (document.getElementById("overhang").checked==false && (document.getElementById("vertical").checked)) {
+        } else if (document.getElementById("overhang").checked == false && (document.getElementById("vertical").checked)) {
           document.getElementById("img2").src = "./images/wall_nooverhang.png"
-        } else if (document.getElementById("overhang").checked==false && (document.getElementById("vertical").checked==false)) {
+        } else if (document.getElementById("overhang").checked == false && (document.getElementById("vertical").checked == false)) {
           document.getElementById("img2").src = "./images/wall_nooverhang_deck.png"
         }
       })
     })
   </script>
 
-  <!-- data in-->
 
 </head>
 
 <body>
- 
+
   <div class="container-fluid text-center" style="background-color:black; color:white">
     <br>
     <h1> Decay module</h1>
@@ -127,140 +126,139 @@
 
   </ul>
 
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-          <div class="menuContent">
-          <form id="modelform" onchange="model_func()">
-            <br>
-            <input type="radio" name="model" value="open" checked>
-            <label for="open">Above-ground</label><br>
-            <input type="radio" id="1top2" name="model" value="forest">
-            <label for="forest">In-ground</label><br>
-            <img id="img_model" width="500px" src="./images/tradack_AG.png">
-          </form>
-        </div>
-      </div>
-
-      <div id="menu0" class="tab-pane fade">
-         <div id="mapwrapper">
-          <div id="map"></div>
-        </div>
-      </div>
-      <!-- 2ND MENU-->
-      <div id="menu1" class="tab-pane fade">
-        <div class="menuContent">
-          <p>The surrounding terrain and topography will affect the local conditions at the
-            location for the project. Local conditions can affect drying conditions
-            (through for example shading) or exposure to precipitation (through e.g. shelter from
-            buildings).</p>
-          <form id="form1" onchange="k1_func()">
-            <p>Select local conditions:</p>
-            <input type="radio" id="top1" name="topography" value="open" checked>
-            <label for="open">Open field</label><br>
-            <input type="radio" id="top2" name="topography" value="forest">
-            <label for="forest">Forest</label><br>
-            <input type="radio" id="top3" name="topography" value="sheltered">
-            <label for="sheltered">Sheltered by buildings</label>
-          </form>
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <div class="menuContent">
+        <form id="modelform" onchange="model_func()">
           <br>
-          <p id="k1text"><b>k<sub>1</sub> = 1.0</b></p>
-        </div>
+          <input type="radio" name="model" value="open" checked>
+          <label for="open">Above-ground</label><br>
+          <input type="radio" id="1top2" name="model" value="forest">
+          <label for="forest">In-ground</label><br>
+          <img id="img_model" width="500px" src="./images/tradack_AG.png">
+        </form>
+        
       </div>
+    </div>
 
-      <!-- 3RD MENU-->
-      <div id="menu2" class="tab-pane fade">
-        <div class="menuContent">
-          <h3></h3>
-          <p>Exposed end-grain tend to absorb more water than exposed side-grain. As
-            a result, decay often starts near exposed end-grain.</p>
-          <form id="form2" onchange="k2_func()">
-            <input type="radio" id="abs1" name="absorp" value="side-grain" checked>
-            <label for="side-grain">Side-grain</label><br>
-            <input type="radio" id="abs2" name="absorp" value="end-grain">
-            <label for="end-grain">End-grain</label><br>
-            <br>
-            <p>Detailing where different components intersect and join are often problematic
-              as they attract dirt and prevent water from drying out.</p>
+    <div id="menu0" class="tab-pane fade">
+      <div id="mapwrapper">
+        <div id="map"></div>
+      </div>
+    </div>
+    <!-- 2ND MENU-->
+    <div id="menu1" class="tab-pane fade">
+      <div class="menuContent">
+        <p>The surrounding terrain and topography will affect the local conditions at the
+          location for the project. Local conditions can affect drying conditions
+          (through for example shading) or exposure to precipitation (through e.g. shelter from
+          buildings).</p>
+        <form id="form1" onchange="k1_func()">
+          <p>Select local conditions:</p>
+          <input type="radio" id="top1" name="topography" value="open" checked>
+          <label for="open">Open field</label><br>
+          <input type="radio" id="top2" name="topography" value="forest">
+          <label for="forest">Forest</label><br>
+          <input type="radio" id="top3" name="topography" value="sheltered">
+          <label for="sheltered">Sheltered by buildings</label>
+        </form>
+        <br>
+        <p id="k1text"><b>k<sub>1</sub> = 1.0</b></p>
+      </div>
+    </div>
 
-            <input type="radio" id="contact1" name="contact" value="contact1" checked>
-            <label for="contact1">No contact face or gap size >5 mm free from dirt</label><br>
-            <input type="radio" id="contact2" name="contact" value="contact2">
-            <label for="contact2">Partially ventilated contact face free from dirt</label><br>
-            <input type="radio" id="contact3" name="contact" value="contact3">
-            <label for="contact3">Direct contact or insufficient ventilation</label><br>
-          </form>
+    <!-- 3RD MENU-->
+    <div id="menu2" class="tab-pane fade">
+      <div class="menuContent">
+        <h3></h3>
+        <p>Exposed end-grain tend to absorb more water than exposed side-grain. As
+          a result, decay often starts near exposed end-grain.</p>
+        <form id="form2" onchange="k2_func()">
+          <input type="radio" id="abs1" name="absorp" value="side-grain" checked>
+          <label for="side-grain">Side-grain</label><br>
+          <input type="radio" id="abs2" name="absorp" value="end-grain">
+          <label for="end-grain">End-grain</label><br>
           <br>
-          <img id="img" width="500px" src="./images/side.png">
-        </div>
+          <p>Detailing where different components intersect and join are often problematic
+            as they attract dirt and prevent water from drying out.</p>
+
+          <input type="radio" id="contact1" name="contact" value="contact1" checked>
+          <label for="contact1">No contact face or gap size >5 mm free from dirt</label><br>
+          <input type="radio" id="contact2" name="contact" value="contact2">
+          <label for="contact2">Partially ventilated contact face free from dirt</label><br>
+          <input type="radio" id="contact3" name="contact" value="contact3">
+          <label for="contact3">Direct contact or insufficient ventilation</label><br>
+        </form>
+
+        <br>
+        <img id="img" width="500px" src="./images/side.png">
       </div>
-      <!-- 4TH MENU-->
-      <div id="menu3" class="tab-pane fade">
-        <div class="menuContent">
-          <p class="card-text">The term shelter is here used to describe any effect which is may reduce the
-            duration of wetting of a <i>horizontal</i> wood surface.
-            A roof overhang has an obvious sheltering effect on the cladding of a wall, but simply orienting
-            a wooden product vertically will reduce the duration of wetting and thereby increase service
-            life.</p>
-          <input type="checkbox" class="shelter shelter_box" id="vertical" name="vertical">
-          <label for="checkbox">Vertical member (subjected to driving rain)</label><br>
-          <input type="checkbox" class="shelter shelter_box" id="overhang" name="overhang">
-          <label for="checkbox">Roof overhang</label><br>
-          <input type="text" class='shelter' id="a" name="groundDist" disabled value="NA" style="background-color:black;" >
-          <label for="contact1" id="label_a">distance to ground (a)</label><br>
-          <input type="text" class='shelter' id="e" name="overhang" value="0" style="background-color:black;visibility:hidden">
-          <label for="overhang" id="label_e" style="visibility:hidden">roof overhang (e)</label><br>
-          <input type="text" class='shelter' id="d" name="dist" value="1.0" style="background-color:black;visibility:hidden">
-          <label for="dist" id="label_d" style="visibility:hidden">distance from shelter (d)</label><br>
-          <img id="img2" width="500px" src="./images/wall_nooverhang_deck.png">
-        </div>
+    </div>
+    <!-- 4TH MENU-->
+    <div id="menu3" class="tab-pane fade">
+      <div class="menuContent">
+        <p class="card-text">The term shelter is here used to describe any effect which is may reduce the
+          duration of wetting of a <i>horizontal</i> wood surface.
+          A roof overhang has an obvious sheltering effect on the cladding of a wall, but simply orienting
+          a wooden product vertically will reduce the duration of wetting and thereby increase service
+          life.</p>
+        <input type="checkbox" class="shelter shelter_box" id="vertical" name="vertical">
+        <label for="checkbox">Vertical member (subjected to driving rain)</label><br>
+        <input type="checkbox" class="shelter shelter_box" id="overhang" name="overhang">
+        <label for="checkbox">Roof overhang</label><br>
+        <input type="text" class='shelter' id="a" name="groundDist" disabled value="NA" style="background-color:black;">
+        <label for="contact1" id="label_a">distance to ground (a)</label><br>
+        <input type="text" class='shelter' id="e" name="overhang" value="0"
+          style="background-color:black;visibility:hidden">
+        <label for="overhang" id="label_e" style="visibility:hidden">roof overhang (e)</label><br>
+        <input type="text" class='shelter' id="d" name="dist" value="1.0"
+          style="background-color:black;visibility:hidden">
+        <label for="dist" id="label_d" style="visibility:hidden">distance from shelter (d)</label><br>
+        <img id="img2" width="500px" src="./images/wall_nooverhang_deck.png">
       </div>
-      <div id="menu4" class="tab-pane fade">
-        <div class="menuContent" id="asdf">
+    </div>
+    <div id="menu4" class="tab-pane fade">
+      <div class="menuContent" id="materialDiv">
 
-
-
-
-        </div>
       </div>
-      <div id="menu5" class="tab-pane fade">
-        <div class="menuContent">
-          <h3></h3>
-          <input id="resultButton" type="button" value="Append results">
-          <h1 id="Results"></h1>
-          <div style="height: 300px; overflow-y:auto;">
-            <table id="resultTable">
-              <caption id="resultCaption">D<sub>E0_rel</sub> = location; <br>
-                k<sub>1</sub> = detailing (relative);<br>
-                k<sub>2</sub> = shelter & splash(relative);<br>
-                D<sub>E_rel</sub> = exposure;<br>
-                D<sub>R_rel</sub> = resistance;<br>
-                SL = service life (years);
-              </caption>
-              
-              <thead>
-                <tr>
-                  <th>Loc</th>
-                  <th>Species</th>
-                  <th>Treatment</th>
-                  <th>D<sub>E0_rel</sub></th>
-                  <th>k<sub>1</sub></th>
-                  <th>k<sub>2</sub></th>
-                  <th>D<sub>E_rel</sub></th>
-                  <th>D<sub>R_rel</sub></th>
-                  <th>SL</th>
-                </tr>
-              </thead>
-              <tbody id="resultTableBody">
+    </div>
+    <div id="menu5" class="tab-pane fade">
+      <div class="menuContent">
+        <h3></h3>
+        <input id="resultButton" type="button" value="Append results">
+        <h1 id="Results"></h1>
+        <div class="tableDiv">
+          <table id="resultTable">
+            <caption id="resultCaption">D<sub>E0_rel</sub> = location; <br>
+              k<sub>1</sub> = detailing (relative to horizontal board)<br>
+              k<sub>2</sub> = shelter & splash (relative to horizontal board)<br>
+              D<sub>E_rel</sub> = exposure (relative to reference)<br>
+              D<sub>R_rel</sub> = resistance;<br>
+              SL = service life (years);
+            </caption>
 
-              </tbody>
+            <thead>
+              <tr>
+                <th>Loc</th>
+                <th>Species</th>
+                <th>Treatment</th>
+                <th>D<sub>E0_rel</sub></th>
+                <th>k<sub>1</sub></th>
+                <th>k<sub>2</sub></th>
+                <th>D<sub>E_rel</sub></th>
+                <th>D<sub>R_rel</sub></th>
+                <th>SL</th>
+              </tr>
+            </thead>
+            <tbody id="resultTableBody">
 
-            </table>
-          </div>
+            </tbody>
+
+          </table>
         </div>
       </div>
     </div>
   </div>
-
 
   <script src="./app.js"></script>
 </body>
