@@ -39,7 +39,7 @@ function createMap(model) {
 
   if (model) {
     var map = L.map('map').setView([55, 15], 3);
-    L.tileLayer.provider('Stamen.Terrain').addTo(map);
+    L.tileLayer.provider('Esri.WorldStreetMap').addTo(map);
     var marker = L.marker([DoseInputs[ind].lat, DoseInputs[ind].lon], { draggable: 'true' }).addTo(map);
     for (var i = 0; i < DoseInputs.length; i++) {
       circleMarker = new L.circleMarker([DoseInputs[i].lat, DoseInputs[i].lon], { radius: 1, color: "red", opacity: 0.2 })
@@ -62,7 +62,7 @@ function createMap(model) {
 
   } else {
     var map = L.map('map').setView([55, 15], 3);
-    L.tileLayer.provider('Stamen.Terrain').addTo(map);
+    L.tileLayer.provider('Esri.WorldStreetMap').addTo(map);
     var marker = L.marker([DoseInputsIG.Lats[ind], DoseInputsIG.Lons[ind]], { draggable: 'true' }).addTo(map);
 
     marker.on('dragend', function () {
